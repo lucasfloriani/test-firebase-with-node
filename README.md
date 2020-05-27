@@ -11,3 +11,4 @@ Projeto de teste utilizando firebase como banco de dados
 ## TODO
 
 - Ajustar a validação do json no controller
+- Criar camada do DAO
