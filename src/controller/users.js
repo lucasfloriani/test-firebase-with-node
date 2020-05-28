@@ -1,66 +1,53 @@
 const usersValidation = require('../validation/users')
 
-// CRUD = Create, Read, Update, Delete
+class UserController {
+  constructor(userDAO) {
+    this.userDAO = userDAO
+  }
 
-const getUsers = (db) => {
-  return async (req, res) => {
+  getUsers = async (req, res) => {
     try {
-      const snapshot = await db.collection('users').get()
-      const dados = snapshot.docs.map(doc => doc.data())
+      const dados = await this.userDAO.getUsers()
       res.status(200).json(dados)
     } catch (e) {
-      res.status(400).json({ error: 'Não foi possível retornar o usuário' })
+      res.status(400).json({ error: 'Não foi possível retornar os usuários' })
     }
   }
-}
 
-const getUser = (db) => {
-  return async (req, res) => {
+  getUser = async (req, res) => {
     try {
       const userID = req.params.id
-      const snapshot = await db.collection('users').doc(userID).get()
-      const userData = snapshot.data()
+      const userData = await this.userDAO.getUser(userID)
       res.status(200).json(userData)
     } catch (e) {
       res.status(400).json({ error: 'Não foi possível retornar o usuário' })
     }
   }
-}
 
-const createUser = (db) => {
-  return async (req, res) => {
+  createUser = async (req, res) => {
     try {
       await usersValidation.createUserValidation.validate(req.body, { abortEarly: true })
     } catch (e) {
       res.status(400).json({ error: 'Não foi possível retornar o usuário' })
     }
   }
-}
 
-const updateUser = (db) => {
-  return async (req, res) => {
+  updateUser = async (req, res) => {
     try {
       await usersValidation.createUserValidation.validate(req.body, { abortEarly: true })
     } catch (e) {
       res.status(400).json({ error: 'Não foi possível retornar o usuário' })
     }
   }
-}
 
-const deleteUser = (db) => {
-  return async (req, res) => {
+  deleteUser = async (req, res) => {
     try {
       await usersValidation.createUserValidation.validate(req.body, { abortEarly: true })
     } catch (e) {
       res.status(400).json({ error: 'Não foi possível retornar o usuário' })
     }
   }
+
 }
 
-module.exports = {
-  getUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
-}
+module.exports = UserController
