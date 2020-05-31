@@ -15,8 +15,12 @@ class ErrorHandler extends Error {
 }
 
 const errorMiddleware = (err, req, res, next) => {
+  const errData = err instanceof ErrorHandler
+    ? err
+    : new ErrorHandler(500, 'Ocorreu um erro inesperado, tente novamente mais tarde')
+
   console.log(err)
-  return res.json(err).status(err.status || 500)
+  res.json(errData).status(errData.status || 500)
 }
 
 module.exports = { errorMiddleware, ErrorHandler }
