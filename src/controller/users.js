@@ -1,53 +1,65 @@
-const usersValidation = require('../validation/users')
+const UserValidationMiddleware = require('../middleware/user')
 
 class UserController {
-  constructor(userDAO) {
-    this.userDAO = userDAO
+  constructor(userService) {
+    this.userService = userService
   }
 
-  getUsers = async (req, res) => {
+  registerRoutes(router) {
+    const validation = new UserValidationMiddleware()
+    router.group('/users', (userRoute) => {
+      userRoute.get('/', validation.getUsers, this.getUsers.bind(this))
+      userRoute.get('/:id', validation.getUser, this.getUser.bind(this))
+      userRoute.post('/', validation.createUser, this.createUser.bind(this))
+      userRoute.put('/:id', validation.updateUser, this.updateUser.bind(this))
+      userRoute.delete('/:id', validation.deleteUser, this.deleteUser.bind(this))
+    })
+  }
+
+  async getUsers(req, res, next) {
     try {
-      const dados = await this.userDAO.getUsers()
+      const dados = await this.userService.getUsers(req.payload)
       res.status(200).json(dados)
-    } catch (e) {
-      res.status(400).json({ error: 'Não foi possível retornar os usuários' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  getUser = async (req, res) => {
+  async getUser(req, res, next) {
     try {
-      const userID = req.params.id
-      const userData = await this.userDAO.getUser(userID)
+      const userData = await this.userService.getUser(req.payload)
       res.status(200).json(userData)
-    } catch (e) {
-      res.status(400).json({ error: 'Não foi possível retornar o usuário' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  createUser = async (req, res) => {
+  async createUser(req, _, next) {
     try {
-      await usersValidation.createUserValidation.validate(req.body, { abortEarly: true })
-    } catch (e) {
-      res.status(400).json({ error: 'Não foi possível retornar o usuário' })
+      const userData = await this.userService.createUser(req.payload)
+      res.status(201).json(userData)
+    } catch (err) {
+      next(err)
     }
   }
 
-  updateUser = async (req, res) => {
+  async updateUser(req, _, next) {
     try {
-      await usersValidation.createUserValidation.validate(req.body, { abortEarly: true })
-    } catch (e) {
-      res.status(400).json({ error: 'Não foi possível retornar o usuário' })
+      const userData = await this.userService.updateUser(req.payload)
+      res.status(200).json(userData)
+    } catch (err) {
+      next(err)
     }
   }
 
-  deleteUser = async (req, res) => {
+  async deleteUser(req, _, next) {
     try {
-      await usersValidation.createUserValidation.validate(req.body, { abortEarly: true })
-    } catch (e) {
-      res.status(400).json({ error: 'Não foi possível retornar o usuário' })
+      const userData = await this.userService.deleteUser(req.payload)
+      res.status(200).json(userData)
+    } catch (err) {
+      next(err)
     }
   }
-
 }
 
 module.exports = UserController
