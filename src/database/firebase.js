@@ -7,6 +7,7 @@ class FirebaseDatabase {
       return firebase.firestore()
     } catch (e) {
       console.error(e)
+      process.exit(1)
     }
   }
 }
