@@ -1,5 +1,6 @@
-import { RequestExtended, Request, Response, NextFunction } from 'express'
-import { ParamsDictionary, Query } from 'express-serve-static-core'
+// import { Request, Response, NextFunction } from 'express'
+// import { ParamsDictionary, Query } from 'express-serve-static-core'
+import { RequestExtended, Response, NextFunction } from 'express'
 import yup from 'yup'
 import { ErrorHandler } from './error'
 import { CreateUserInput, UserFilter, GetUserInput, UpdateUserInput, DeleteUserInput } from '../dto/user'
@@ -7,6 +8,7 @@ import { CreateUserInput, UserFilter, GetUserInput, UpdateUserInput, DeleteUserI
 // TODO: Refactor yup types to stop using as <T> in validate
 class UserValidationMiddleware {
   // async getUsers(req: ExpressRequestExtended<UserFilter>, res: Response, next: NextFunction) {
+  // async getUsers(req: Request<ParamsDictionary, any, any, Query, UserFilter>, res: Response, next: NextFunction) {
   async getUsers(req: RequestExtended<UserFilter>, res: Response, next: NextFunction) {
     try {
       const schema = yup.object<UserFilter>().shape<UserFilter>({
@@ -23,6 +25,7 @@ class UserValidationMiddleware {
   }
 
   // async getUser(req: ExpressRequestExtended<GetUserInput>, res: Response, next: NextFunction) {
+  // async getUser(req: Request<ParamsDictionary, any, any, Query, GetUserInput>, res: Response, next: NextFunction) {
   async getUser(req: RequestExtended<GetUserInput>, res: Response, next: NextFunction) {
     try {
       const schema = yup.object<GetUserInput>().shape<GetUserInput>({
@@ -37,6 +40,7 @@ class UserValidationMiddleware {
   }
 
   // async createUser(req: ExpressRequestExtended<CreateUserInput>, res: Response, next: NextFunction) {
+  // async createUser(req: Request<ParamsDictionary, any, any, Query, CreateUserInput>, res: Response, next: NextFunction) {
   async createUser(req: RequestExtended<CreateUserInput>, res: Response, next: NextFunction) {
     try {
       const schema = yup.object<CreateUserInput>().shape({
@@ -54,6 +58,7 @@ class UserValidationMiddleware {
   }
 
   // async updateUser(req: ExpressRequestExtended<UpdateUserInput>, res: Response, next: NextFunction) {
+  // async updateUser(req: Request<ParamsDictionary, any, any, Query, UpdateUserInput>, res: Response, next: NextFunction) {
   async updateUser(req: RequestExtended<UpdateUserInput>, res: Response, next: NextFunction) {
     try {
       const schema = yup.object<UpdateUserInput>().shape<UpdateUserInput>({
@@ -72,6 +77,7 @@ class UserValidationMiddleware {
   }
 
   // async deleteUser(req: ExpressRequestExtended<DeleteUserInput>, res: Response, next: NextFunction) {
+  // async deleteUser(req: Request<ParamsDictionary, any, any, Query, DeleteUserInput>, res: Response, next: NextFunction) {
   async deleteUser(req: RequestExtended<DeleteUserInput>, res: Response, next: NextFunction) {
     try {
       const schema = yup.object<DeleteUserInput>().shape<DeleteUserInput>({
