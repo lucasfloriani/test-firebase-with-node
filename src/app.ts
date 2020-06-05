@@ -1,7 +1,8 @@
-require('dotenv').config()
-const FirebaseDatabase = require('./src/database/firebase')
-const firebaseConfig = require('./src/database/firebaseConfig')
-const Router = require('./src/route')
+import dotenv from 'dotenv'
+import FirebaseDatabase from './database/firebase'
+import firebaseConfig from './database/firebaseConfig'
+import RouterInitializer from './route/index'
+dotenv.config()
 
 const main = async () => {
   try {
@@ -10,7 +11,7 @@ const main = async () => {
     const db = firebaseDatabase.getDatabaseConnection(firebaseConfig)
 
     // === Start API Server ===
-    const route = new Router()
+    const route = new RouterInitializer()
     const server = route.initializeRoutes(db)
     server.listen(3000, () => console.log('Example app listening on port 3000!'))
   } catch (e) {

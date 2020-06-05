@@ -1,13 +1,13 @@
-const express = require('express')
-require('express-group-routes')
-const bodyParser = require('body-parser')
-const { errorMiddleware } = require('../middleware/error')
-const UserController = require('../controller/users')
-const UserService = require('../service/users')
-const UserDAO = require('../dao/users')
+import express from 'express'
+import 'express-group-routes'
+import bodyParser from 'body-parser'
+import { errorMiddleware } from '../middleware/error'
+import UserController from '../controller/users'
+import UserService from '../service/users'
+import UserDAO from '../dao/users'
 
-class Router {
-  initializeRoutes(db) {
+class RouterInitializer {
+  initializeRoutes(db: firebase.firestore.Firestore) {
     // === Instancias do DAO ===
     const userDAO = new UserDAO(db)
 
@@ -34,4 +34,4 @@ class Router {
   }
 }
 
-module.exports = Router
+export default RouterInitializer

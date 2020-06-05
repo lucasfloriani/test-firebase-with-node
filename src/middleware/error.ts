@@ -1,20 +1,26 @@
-class ErrorHandler extends Error {
-  constructor(status = 500, message, ...params) {
+import { Request, Response, NextFunction } from 'express'
+
+export class ErrorHandler extends Error {
+  public description: string | string[]
+  public status: number
+  public date: Date
+
+  constructor(status = 500, description: string | string[], ...params: any[]) {
     // Pass remaining arguments (including vendor specific ones) to parent constructor
-    super(...params);
+    super(...params)
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ErrorHandler )
     }
 
-    this.message = typeof message === 'string' ? [message] : message
+    this.description = typeof description === 'string' ? [description] : description
     this.status = status
     this.date = new Date()
   }
 }
 
-const errorMiddleware = (err, req, res, next) => {
+export const errorMiddleware = (err: Error | ErrorHandler, _: Request, res: Response, _2: NextFunction) => {
   const errData = err instanceof ErrorHandler
     ? err
     : new ErrorHandler(500, 'Ocorreu um erro inesperado, tente novamente mais tarde')
@@ -22,5 +28,3 @@ const errorMiddleware = (err, req, res, next) => {
   console.log(err)
   res.json(errData).status(errData.status || 500)
 }
-
-module.exports = { errorMiddleware, ErrorHandler }
