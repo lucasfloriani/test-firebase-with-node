@@ -1,4 +1,3 @@
-import { Request } from 'express'
 import ExpressCore from 'express-serve-static-core'
 
 declare module "express-serve-static-core" {
@@ -16,9 +15,9 @@ declare module "express-serve-static-core" {
 }
 
 declare module 'express' {
-  export interface Request<P extends ExpressCore.Params = ExpressCore.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ExpressCore.Query, Payload extends object = {}> {
-    payload?: Payload
-  }
+  // export interface Request<P extends ExpressCore.Params = ExpressCore.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ExpressCore.Query, Payload extends object = {}> {
+  //   payload?: Payload
+  // }
 
   export interface RequestExtended<Payload> extends Request {
     payload?: Payload
