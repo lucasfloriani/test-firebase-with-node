@@ -1,8 +1,8 @@
 import dotenv from 'dotenv'
+dotenv.config()
 import FirebaseDatabase from './database/firebase'
 import firebaseConfig from './database/firebaseConfig'
 import RouterInitializer from './route/index'
-dotenv.config()
 
 const main = async () => {
   try {
