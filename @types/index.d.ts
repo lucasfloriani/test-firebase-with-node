@@ -1,4 +1,4 @@
-import ExpressCore from 'express-serve-static-core'
+import 'express-serve-static-core'
 
 declare module "express-serve-static-core" {
   type GroupCallback = (router: Router) => void
@@ -15,10 +15,6 @@ declare module "express-serve-static-core" {
 }
 
 declare module 'express' {
-  // export interface Request<P extends ExpressCore.Params = ExpressCore.ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = ExpressCore.Query, Payload extends object = {}> {
-  //   payload?: Payload
-  // }
-
   export interface RequestExtended<Payload> extends Request {
     payload?: Payload
   }

@@ -1,5 +1,3 @@
-// import { Request, Response, NextFunction, Router } from 'express'
-// import { ParamsDictionary, Query } from 'express-serve-static-core'
 import { RequestExtended, Response, NextFunction, Router } from 'express'
 import UserValidationMiddleware from '../middleware/user'
 import User from '../models/user'
@@ -31,8 +29,6 @@ class UserController {
     })
   }
 
-  // async getUsers(req: ExpressRequestExtended<UserFilter>, res: Response, next: NextFunction) {
-  // async getUsers(req: Request<ParamsDictionary, any, any, Query, UserFilter>, res: Response, next: NextFunction) {
   async getUsers(req: RequestExtended<UserFilter>, res: Response, next: NextFunction) {
     try {
       const dados = await this.userService.getUsers(req.payload!)
@@ -42,8 +38,6 @@ class UserController {
     }
   }
 
-  // async getUser(req: ExpressRequestExtended<GetUserInput>, res: Response, next: NextFunction) {
-  // async getUser(req: Request<ParamsDictionary, any, any, Query, GetUserInput>, res: Response, next: NextFunction) {
   async getUser(req: RequestExtended<GetUserInput>, res: Response, next: NextFunction) {
     try {
       const userData = await this.userService.getUser(req.payload!)
@@ -53,8 +47,6 @@ class UserController {
     }
   }
 
-  // async createUser(req: ExpressRequestExtended<CreateUserInput>, res: Response, next: NextFunction) {
-  // async createUser(req: Request<ParamsDictionary, any, any, Query, CreateUserInput>, res: Response, next: NextFunction) {
   async createUser(req: RequestExtended<CreateUserInput>, res: Response, next: NextFunction) {
     try {
       const userData = await this.userService.createUser(req.payload!)
@@ -64,8 +56,6 @@ class UserController {
     }
   }
 
-  // async updateUser(req: ExpressRequestExtended<UpdateUserInput>, res: Response, next: NextFunction) {
-  // async updateUser(req: Request<ParamsDictionary, any, any, Query, UpdateUserInput>, res: Response, next: NextFunction) {
   async updateUser(req: RequestExtended<UpdateUserInput>, res: Response, next: NextFunction) {
     try {
       const userData = await this.userService.updateUser(req.payload!)
@@ -75,8 +65,6 @@ class UserController {
     }
   }
 
-  // async deleteUser(req: ExpressRequestExtended<DeleteUserInput>, res: Response, next: NextFunction) {
-  // async deleteUser(req: Request<ParamsDictionary, any, any, Query, DeleteUserInput>, res: Response, next: NextFunction) {
   async deleteUser(req: RequestExtended<DeleteUserInput>, res: Response, next: NextFunction) {
     try {
       const userData = await this.userService.deleteUser(req.payload!)

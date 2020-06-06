@@ -8,23 +8,23 @@ import UserDAO from '../dao/users'
 
 class RouterInitializer {
   initializeRoutes(db: firebase.firestore.Firestore) {
-    // === Instancias do DAO ===
+    // ===== Instancias do DAO =====
     const userDAO = new UserDAO(db)
 
-    // === Instancias do DAO ===
+    // ===== Instancias do DAO =====
     const userService = new UserService(userDAO)
 
-    // === Instancias do Controller ===
+    // ===== Instancias do Controller =====
     const userController = new UserController(userService)
 
-    // === Configuração do express ===
+    // ===== Configuração do express =====
     const router = express()
 
-    // Middleware
+    // === Middleware ===
     router.use(bodyParser.urlencoded({ extended: false }))
     router.use(bodyParser.json())
 
-    // Routes
+    // === Routes ===
     router.group('/v1', (v1) => {
       userController.registerRoutes(v1)
     })

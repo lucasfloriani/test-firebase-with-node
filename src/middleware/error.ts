@@ -6,13 +6,8 @@ export class ErrorHandler extends Error {
   public date: Date
 
   constructor(status = 500, description: string | string[], ...params: any[]) {
-    // Pass remaining arguments (including vendor specific ones) to parent constructor
     super(...params)
-
-    // Maintains proper stack trace for where our error was thrown (only available on V8)
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, ErrorHandler )
-    }
+    if (Error.captureStackTrace) Error.captureStackTrace(this, ErrorHandler)
 
     this.description = typeof description === 'string' ? [description] : description
     this.status = status
