@@ -6,7 +6,7 @@ Projeto de teste utilizando firebase como banco de dados
 
 1. Criar arquivo `.env` com as mesmas variáveis presentes no arquivo `.env.example`
 2. Rode `npm i` para instalar as dependencias do projeto
-3. Utilize o comando `npm start` e aproveite o projeto
+3. Utilize o comando `npm run dev` e aproveite o projeto
 
 ## TODO
 
