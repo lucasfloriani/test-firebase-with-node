@@ -1,7 +1,7 @@
 // import { Request, Response, NextFunction } from 'express'
 // import { ParamsDictionary, Query } from 'express-serve-static-core'
 import { RequestExtended, Response, NextFunction } from 'express'
-import yup from 'yup'
+import * as yup from 'yup'
 import { ErrorHandler } from './error'
 import { CreateUserInput, UserFilter, GetUserInput, UpdateUserInput, DeleteUserInput } from '../dto/user'
 
@@ -19,6 +19,7 @@ class UserValidationMiddleware {
       }) as UserFilter
       return next()
     } catch (error) {
+      console.error(error)
       const err = new ErrorHandler(400, error.errors)
       return res.status(err.status).json(err)
     }
