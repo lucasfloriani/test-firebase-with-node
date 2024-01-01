@@ -7,12 +7,10 @@ import RouterInitializer from './route/index'
 const main = async () => {
   try {
     // === Conexão com o banco de dados (firebase) ===
-    const firebaseDatabase = new FirebaseDatabase()
-    const db = firebaseDatabase.getDatabaseConnection(firebaseConfig)
+    const db = FirebaseDatabase.getDatabaseConnection(firebaseConfig)
 
     // === Start API Server ===
-    const route = new RouterInitializer()
-    const server = route.initializeRoutes(db)
+    const server = RouterInitializer.initializeRoutes(db)
     server.listen(3000, () => console.log('Example app listening on port 3000!'))
   } catch (e) {
     console.error(e)

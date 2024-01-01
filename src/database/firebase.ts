@@ -11,7 +11,7 @@ interface FirebaseConfig {
 }
 
 class FirebaseDatabase {
-  getDatabaseConnection = (firebaseConfig: FirebaseConfig) => {
+  public static getDatabaseConnection(firebaseConfig: FirebaseConfig) {
     try {
       firebase.initializeApp(firebaseConfig)
       return firebase.firestore()

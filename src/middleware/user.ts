@@ -16,6 +16,10 @@ class UserValidationMiddleware {
       return next()
     } catch (error) {
       console.error(error)
+
+      const errorResponse = (res, error) => {
+
+      }
       const err = new ErrorHandler(400, error.errors)
       return res.status(err.status).json(err)
     }
@@ -42,7 +46,7 @@ class UserValidationMiddleware {
         password: yup.string().required(),
         email: yup.string().email().required(),
       })
-      req.payload = await schema.validate(req.body) as CreateUserInput
+      req.payload = await schema.validate(req.body)
       return next()
     } catch (error) {
       const err = new ErrorHandler(400, error.errors)

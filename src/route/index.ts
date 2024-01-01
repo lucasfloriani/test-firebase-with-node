@@ -7,7 +7,7 @@ import UserService from '../service/users'
 import UserDAO from '../dao/users'
 
 class RouterInitializer {
-  initializeRoutes(db: firebase.firestore.Firestore) {
+  static initializeRoutes(db: firebase.firestore.Firestore) {
     // ===== Instancias do DAO =====
     const userDAO = new UserDAO(db)
 
